@@ -7,7 +7,7 @@ import (
 	"github.com/julianyf/Desafio_BrandMonitor/src/configuration/logger"
 	"github.com/julianyf/Desafio_BrandMonitor/src/configuration/validation"
 	"github.com/julianyf/Desafio_BrandMonitor/src/controller/model/request"
-	"github.com/julianyf/Desafio_BrandMonitor/src/controller/model/response"
+	"github.com/julianyf/Desafio_BrandMonitor/src/model"
 	"go.uber.org/zap"
 )
 
@@ -27,16 +27,21 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	response := response.UserResponse{
-		ID:    "test",
-		Email: UserRequest.Email,
-		Name:  UserRequest.Name,
-		Age:   UserRequest.Age,
+	domain := model.NewUserDomain(
+		UserRequest.Email,
+		UserRequest.Password,
+		UserRequest.Name,
+		UserRequest.Age,
+	)
+
+	if err := domain.CreateUser(); err != nil {
+		c.JSON(err.Code, err)
+		return
 	}
 
 	logger.Info("User created sucessfully",
 		zap.String("journey", "createUser"),
 	)
 
-	c.JSON(http.StatusOK, response)
+	c.String(http.StatusOK, "")
 }
