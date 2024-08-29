@@ -8,6 +8,7 @@ import (
 	"github.com/julianyf/Desafio_BrandMonitor/src/configuration/validation"
 	"github.com/julianyf/Desafio_BrandMonitor/src/controller/model/request"
 	"github.com/julianyf/Desafio_BrandMonitor/src/model"
+	"github.com/julianyf/Desafio_BrandMonitor/src/model/service"
 	"go.uber.org/zap"
 )
 
@@ -34,7 +35,9 @@ func CreateUser(c *gin.Context) {
 		UserRequest.Age,
 	)
 
-	if err := domain.CreateUser(); err != nil {
+	service := service.NewUserDomainService()
+
+	if err := service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
 		return
 	}

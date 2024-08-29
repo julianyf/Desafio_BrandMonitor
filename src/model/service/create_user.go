@@ -1,19 +1,22 @@
-package model
+package service
 
 import (
 	"fmt"
 
 	"github.com/julianyf/Desafio_BrandMonitor/src/configuration/logger"
 	"github.com/julianyf/Desafio_BrandMonitor/src/configuration/rest_err"
+	"github.com/julianyf/Desafio_BrandMonitor/src/model"
 	"go.uber.org/zap"
 )
 
-func (ud *UserDomain) CreateUser() *rest_err.RestErr {
+func (ud *userDomainService) CreateUser(
+	userDomain model.UserDomainInterface,
+) *rest_err.RestErr {
 
 	logger.Info("Init createUser model", zap.String("journey", "createUser"))
 
-	ud.EncryptPassword()
+	userDomain.EncryptPassword()
 
-	fmt.Println(ud)
+	fmt.Println(userDomain.GetName())
 	return nil
 }
