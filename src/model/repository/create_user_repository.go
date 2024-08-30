@@ -9,17 +9,16 @@ import (
 	"github.com/julianyf/Desafio_BrandMonitor/src/model"
 	"github.com/julianyf/Desafio_BrandMonitor/src/model/repository/entity/converter"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-)
-
-const (
-	MONGODB_USER_DB = "MONGODB_USER_DB"
+	"go.uber.org/zap"
 )
 
 func (ur *userRepository) CreateUser(
 	userDomain model.UserDomainInterface,
 ) (model.UserDomainInterface, *rest_err.RestErr) {
 
-	logger.Info("Init create user repository")
+	logger.Info("Init create user repository",
+		zap.String("journey", "createUser"))
+
 	collection_name := os.Getenv(MONGODB_USER_DB)
 
 	collection := ur.databaseConnection.Collection(collection_name)

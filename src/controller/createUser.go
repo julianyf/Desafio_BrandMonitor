@@ -35,7 +35,7 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		UserRequest.Age,
 	)
 
-	domainResult, err := uc.service.CreateUser(domain)
+	domainResult, err := uc.service.CreateUserServices(domain)
 	if err != nil {
 		c.JSON(err.Code, err)
 		return
