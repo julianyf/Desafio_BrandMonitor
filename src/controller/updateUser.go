@@ -42,6 +42,10 @@ func (uc *userControllerInterface) UpdateUser(c *gin.Context) {
 
 	err := uc.service.UpdateUser(userId, domain)
 	if err != nil {
+		logger.Error(
+			"Error trying to call updateUser service",
+			err,
+			zap.String("journey", "updateUser"))
 		c.JSON(err.Code, err)
 		return
 	}

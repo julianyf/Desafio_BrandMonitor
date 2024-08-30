@@ -23,7 +23,7 @@ func (ud *userDomainService) UpdateUser(
 	}
 
 	logger.Info(
-		"CreatedUser service executed successfully",
+		"updateUser service executed successfully",
 		zap.String("userId", userId),
 		zap.String("journey", "updateUser"))
 	return nil
